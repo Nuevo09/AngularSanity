@@ -1,10 +1,20 @@
 
 
 <div class="w-full p-12 z-10">
-    <div class="mt-16 mb-10 flex flex-col items-center md:mb-12 md:flex-row md:justify-between"><h1
-      class="mb-4 text-4xl font-bold text-9xl text-gray-800">Blog.</h1>
-      <h4 class="mt-5 text-center text-lg md:pl-8 md:text-left BlogHeader_portableText__JCSyj"><p>Articles from  <a href="https://sanity.io/" class="hover:text-sky-500 underline" target="_blank">Sanity</a> using <a  class="hover:text-red-500 underline" href="https://angular.io" target="_blank">Angular</a></p></h4>
-    </div>
+  <div class="absolute top-0 right-0 mt-5 mr-5">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Login/Sign Up
+    </button>
+  </div>
+  
+  <div class="mt-16 mb-10 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
+    <h1 class="mb-4 text-4xl font-bold text-9xl text-gray-800">'TE' Blogs</h1>
+    <h4 class="mt-5 text-center text-lg md:pl-8 md:text-left BlogHeader_portableText__JCSyj">
+      <p>Articles from <a href="https://sanity.io/" class="hover:text-sky-500 underline" target="_blank">'TE' Getter</a> using
+        <a class="hover:text-red-500 underline" href="https://angular.io" target="_blank">Stories</a>
+      </p>
+    </h4>
+  </div>
   <div class="p-5 mx-auto bg-black text-gray-100 rounded-lg">
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
       <div *ngFor="let post of posts">

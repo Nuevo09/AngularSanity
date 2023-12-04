@@ -21,6 +21,7 @@
     "useDefineForClassFields": false,
     "types": ["node"],
     "typeRoots": ["node_modules/@types"],
+    "allowSyntheticDefaultImports":true,
     "lib": [
       "ES2022",
       "dom"

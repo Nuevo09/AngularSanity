@@ -5,10 +5,11 @@ import {schemaTypes} from './schemas'
 
 export default defineConfig({
   name: 'default',
-  title: 'AngularSanity',
+  title: 'The rise of \'TE\' Getter!',
+
   projectId: 'w28i4fn3',
   dataset: 'production',
-  apiVersion: '2022-03-07',
+
   plugins: [deskTool(), visionTool()],
 
   schema: {
