@@ -3,6 +3,8 @@ import imageUrlBuilder from "@sanity/image-url";
 import {indexQuery, Post, SpecificPost} from "../queries/sanity.queries";
 import {createClient} from '@sanity/client';
 import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

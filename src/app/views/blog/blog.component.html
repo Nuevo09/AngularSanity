@@ -1,12 +1,6 @@
 
 
 <div class="w-full p-12 z-10">
-  <div class="absolute top-0 right-0 mt-5 mr-5">
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      Login/Sign Up
-    </button>
-  </div>
-  
   <div class="mt-16 mb-10 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
     <h1 class="mb-4 text-4xl font-bold text-9xl text-gray-800">'TE' Blogs</h1>
     <h4 class="mt-5 text-center text-lg md:pl-8 md:text-left BlogHeader_portableText__JCSyj">
@@ -45,5 +39,32 @@
     </div>
 
   </div>
+
+  
+
+<div class="mt-10 p-5 mx-auto bg-black text-gray-100 rounded-lg">
+  <h2 class="text-xl font-bold mb-4 text-gray-100">Subscribe to Our Newsletter</h2>
+  <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
+    <div class="flex items-center">
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        class="flex-1 py-2 px-3 mr-2 rounded-md text-black"
+      />
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Subscribe
+      </button>
+    </div>
+    <!-- Add validation messages if needed -->
+    <!-- Check if newsletterForm and email control are not null before accessing properties -->
+    <div *ngIf="newsletterForm?.get('email')">
+      <div *ngIf="newsletterForm.get('email')?.hasError('email')" class="text-red-500 mt-2">
+        Invalid email address.
+      </div>
+    </div>
+  </form>
+</div>
+  
 
 
