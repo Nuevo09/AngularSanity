@@ -42,29 +42,33 @@
 
   
 
-<div class="mt-10 p-5 mx-auto bg-black text-gray-100 rounded-lg">
-  <h2 class="text-xl font-bold mb-4 text-gray-100">Subscribe to Our Newsletter</h2>
-  <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
-    <div class="flex items-center">
-      <input
-        type="email"
-        formControlName="email"
-        placeholder="Enter your email"
-        class="flex-1 py-2 px-3 mr-2 rounded-md text-black"
-      />
-      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Subscribe
-      </button>
-    </div>
-    <!-- Add validation messages if needed -->
-    <!-- Check if newsletterForm and email control are not null before accessing properties -->
-    <div *ngIf="newsletterForm?.get('email')">
-      <div *ngIf="newsletterForm.get('email')?.hasError('email')" class="text-red-500 mt-2">
-        Invalid email address.
+  <div class="mt-10 p-5 mx-auto bg-black text-gray-100 rounded-lg">
+    <h2 class="text-xl font-bold mb-4 text-gray-100">Subscribe to Our Newsletter</h2>
+    <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
+      <div class="flex items-center">
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          class="flex-1 py-2 px-3 mr-2 rounded-md text-black"
+        />
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Subscribe
+        </button>
       </div>
-    </div>
-  </form>
-</div>
-  
+      <div *ngIf="newsletterForm?.get('email')">
+        <div *ngIf="newsletterForm.get('email')?.hasError('email')" class="text-red-500 mt-2">
+          Invalid email address.
+        </div>
+      </div>
+
+      <div *ngIf="successMessage" class="mt-4 text-green-500">
+        {{ successMessage }}
+      </div>
+      
+      <!-- Error message -->
+      <div *ngIf="errorMessage" class="mt-4 text-red-500">
+        {{ errorMessage }}
+      </div>
 
 

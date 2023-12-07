@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SanityService } from 'src/app/services/sanity.service';
 import { SubscriptionService } from 'src/app/services/subscription.service';
 import { Subscriber } from 'src/app/models/subscriber.model';
+
 @Component({
   selector: 'app-blog',
   standalone: true,
@@ -15,18 +16,20 @@ import { Subscriber } from 'src/app/models/subscriber.model';
 })
 export class BlogComponent implements OnInit {
 
+  subscriber: Subscriber;
+  newsletterForm!: FormGroup;
+  errorMessage: string = ''; // Initialize errorMessage
+  successMessage: string = ''; // Initialize successMessage
 
-  subscriber:Subscriber;
   constructor(
     private sanityService: SanityService,
     private fb: FormBuilder,
-    private subscriptionService:SubscriptionService
+    private subscriptionService: SubscriptionService
   ) {
-this.subscriber=new Subscriber();
+    this.subscriber = new Subscriber();
   }
 
   posts: any[] = [];
-  newsletterForm!: FormGroup;
 
   defaultImageURL =
     "https://cdn.sanity.io/images//production/f2618421dbd6de2a63ddea363195fbab8f41afc5-3543x2365.jpg";
@@ -38,6 +41,8 @@ this.subscriber=new Subscriber();
   ngOnInit(): void {
     this.getPosts();
     this.initNewsletterForm();
+    this.errorMessage = '';
+    this.successMessage = '';
   }
 
   initNewsletterForm() {
@@ -48,14 +53,22 @@ this.subscriber=new Subscriber();
 
   onSubmit() {
     if (this.newsletterForm.valid) {
-      
-      
-     
-      
-      this.subscriber.email=this.newsletterForm.value.email;
-      this.subscriptionService.subscribed(this.subscriber).subscribe();
-      alert('Thank you for subscribing!');
-      
+      const email = this.newsletterForm.value.email;
+
+      this.subscriber.email = this.newsletterForm.value.email;
+      this.subscriptionService.subscribed(this.subscriber).subscribe(
+        Response => {
+          console.log(Response);
+          this.errorMessage = ''; // Clear any previous error message
+          this.successMessage = 'Thank you for subscribing!'; // Set success message
+        },
+        error => {
+          console.log(error);
+          this.errorMessage = error.error.message;
+          this.successMessage = ''; // Clear any previous success message
+        }
+      );
+
       this.newsletterForm.reset();
     }
   }
