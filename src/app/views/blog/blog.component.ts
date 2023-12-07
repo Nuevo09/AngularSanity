@@ -4,6 +4,8 @@ import { RouterLink } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SanityService } from 'src/app/services/sanity.service';
+import { SubscriptionService } from 'src/app/services/subscription.service';
+import { Subscriber } from 'src/app/models/subscriber.model';
 @Component({
   selector: 'app-blog',
   standalone: true,
@@ -12,10 +14,16 @@ import { SanityService } from 'src/app/services/sanity.service';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
+
+
+  subscriber:Subscriber;
   constructor(
     private sanityService: SanityService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private subscriptionService:SubscriptionService
+  ) {
+this.subscriber=new Subscriber();
+  }
 
   posts: any[] = [];
   newsletterForm!: FormGroup;
@@ -40,7 +48,14 @@ export class BlogComponent implements OnInit {
 
   onSubmit() {
     if (this.newsletterForm.valid) {
-      console.log('Form submitted with email:', this.newsletterForm.value.email);
+      
+      
+     
+      
+      this.subscriber.email=this.newsletterForm.value.email;
+      this.subscriptionService.subscribed(this.subscriber).subscribe();
+      alert('Thank you for subscribing!');
+      
       this.newsletterForm.reset();
     }
   }
