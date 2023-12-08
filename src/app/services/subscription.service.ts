@@ -20,10 +20,10 @@ export class SubscriptionService {
         catchError((error: HttpErrorResponse) => {
           if (error.status === 409) {
             // 409 status indicates conflict (email already subscribed)
-            return throwError('Email already subscribed');
+            return throwError(() =>'Email already subscribed');
           }
           // Handle other errors here
-          return throwError('Subscription failed');
+          return throwError(()=>'Subscription failed');
         })
       );
   }

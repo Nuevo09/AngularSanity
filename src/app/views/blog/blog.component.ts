@@ -54,22 +54,26 @@ export class BlogComponent implements OnInit {
   onSubmit() {
     if (this.newsletterForm.valid) {
       const email = this.newsletterForm.value.email;
-
-      this.subscriber.email = this.newsletterForm.value.email;
+  
+      this.subscriber.email = email;
       this.subscriptionService.subscribed(this.subscriber).subscribe(
-        Response => {
-          console.log(Response);
+        () => {
           this.errorMessage = ''; // Clear any previous error message
           this.successMessage = 'Thank you for subscribing!'; // Set success message
+  
+          // Delay for 2 seconds (adjust as needed)
+          setTimeout(() => {
+            this.successMessage = '';
+          }, 2000);
+  
+          this.newsletterForm.reset();
         },
         error => {
-          console.log(error);
+          
           this.errorMessage = error.error.message;
           this.successMessage = ''; // Clear any previous success message
         }
       );
-
-      this.newsletterForm.reset();
     }
   }
 
