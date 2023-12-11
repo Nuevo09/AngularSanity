@@ -7,12 +7,12 @@ const routes: Routes = [{
   path: '',
   loadComponent: () => import('./views/blog/blog.component').then(m => BlogComponent),
   pathMatch: 'full',
-  title: "Post | Sanity"
+  title: "'TE' blogs"
 }, {
   path: 'post/:id',
   loadComponent: () => import('./views/post/post.component').then(m => PostComponent),
   pathMatch: 'full',
-  title: "Post | Sanity"
+  title: "'TE' blogs"
 }];
 
 @NgModule({

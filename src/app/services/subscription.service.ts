@@ -8,22 +8,24 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SubscriptionService {
-  private backendUrl: string; // Replace with your Spring Boot backend URL
+  private backendUrl: string;
 
   constructor(private http: HttpClient) {
     this.backendUrl = 'http://localhost:8080/subscribers';
   }
 
-  subscribed(subscriber: Subscriber): Observable<string> {
-    return this.http.post<string>(`${this.backendUrl}/subscribe`, subscriber)
+  subscribed(subscriber: Subscriber): Observable<Subscriber> {
+    return this.http.post<Subscriber>(`${this.backendUrl}/subscribe`, subscriber)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 409) {
-            // 409 status indicates conflict (email already subscribed)
-            return throwError(() =>'Email already subscribed');
+            return throwError(() => 'Email already subscribed');
+          }
+          if (error.status === 500) {
+            return throwError(() => 'Subscriber already exists');
           }
           // Handle other errors here
-          return throwError(()=>'Subscription failed');
+          return throwError(() => 'Subscription failed');
         })
       );
   }

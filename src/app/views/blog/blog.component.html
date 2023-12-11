@@ -12,7 +12,7 @@
   <div class="p-5 mx-auto bg-black text-gray-100 rounded-lg">
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-4 sm:grid-cols-2">
       <div *ngFor="let post of posts">
-        <div class="relative flex items-end justify-start w-full text-left bg-center bg-cover h-96 bg-gray-500 rounded-lg"  style.background-image="url('{{ imageUrl(post.coverImage)}}')" [routerLink]="['/post/'+post.slug]">
+        <div class="relative flex items-end justify-start w-full text-left bg-center bg-cover h-96 bg-gray-500 rounded-lg hover:scale-105 hover:text-white transition duration-300 ease-in-out" style="background-image: url('{{ imageUrl(post.coverImage)}}')" [routerLink]="['/post/'+post.slug]">
           <div class="absolute top-0 bottom-0 left-0 right-0 bg-gradient-to-b via-transparent from-gray-500 to-gray-900  rounded-lg"></div>
           <div class="absolute top-0 left-0 right-0 flex items-center justify-between mx-5 mt-3">
             <a rel="noopener noreferrer" href="#" class="px-3 py-2 text-xs font-semibold tracking-wider uppercase text-gray-100 tracking-wider uppercase text-gray-100 bg-black">{{ post.category }}</a>
@@ -23,21 +23,19 @@
           </div>
           <h2 class="z-10 p-5">
             <a rel="noopener noreferrer" href="#" class="font-medium text-md hover:underline text-gray-100"> {{ post.title }}</a>
-            <p class="font-light text-gray-400 text-gray-300 text-md">
+            <p class="font-light text-gray-400 text-gray-300 text-md transition duration-300 ease-in-out transform hover:scale-105 hover:text-white">
               {{ post.excerpt }}
             </p>
             <div class="flex text-sm">
-            <p>By: </p>
+              <p>By: </p>
               <p class="text-gray-800 text-white">
-                 {{ post.author.name }}
+                {{ post.author.name }}
               </p>
             </div>
           </h2>
-
         </div>
       </div>
     </div>
-
   </div>
 
   

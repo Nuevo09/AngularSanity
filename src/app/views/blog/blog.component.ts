@@ -18,8 +18,8 @@ export class BlogComponent implements OnInit {
 
   subscriber: Subscriber;
   newsletterForm!: FormGroup;
-  errorMessage: string = ''; // Initialize errorMessage
-  successMessage: string = ''; // Initialize successMessage
+  errorMessage: string = ''; 
+  successMessage: string = ''; 
 
   constructor(
     private sanityService: SanityService,
@@ -53,29 +53,45 @@ export class BlogComponent implements OnInit {
 
   onSubmit() {
     if (this.newsletterForm.valid) {
-      const email = this.newsletterForm.value.email;
-  
-      this.subscriber.email = email;
-      this.subscriptionService.subscribed(this.subscriber).subscribe(
-        () => {
-          this.errorMessage = ''; // Clear any previous error message
-          this.successMessage = 'Thank you for subscribing!'; // Set success message
-  
-          // Delay for 2 seconds (adjust as needed)
-          setTimeout(() => {
-            this.successMessage = '';
-          }, 2000);
-  
-          this.newsletterForm.reset();
-        },
-        error => {
-          
-          this.errorMessage = error.error.message;
-          this.successMessage = ''; // Clear any previous success message
-        }
-      );
+        const email = this.newsletterForm.value.email;
+
+        this.subscriber.email = email;
+        this.subscriptionService?.subscribed(this.subscriber)?.subscribe(
+            () => {
+                // Subscription successful
+                this.errorMessage = ''; // Clear any previous error message
+                this.successMessage = 'Thank you for subscribing!'; // Set success message
+
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 2000);
+
+                this.newsletterForm.reset();
+            },
+            (error) => {
+                // Handle error response
+                if (error && error.error) {
+                    this.errorMessage = error.error;
+
+                    // Clear the error message after 2 seconds
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 2000);
+                } else {
+                    this.errorMessage = 'Subscription failed, Mail already subscribed!';
+
+                    // Clear the error message after 2 seconds
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 2000);
+                }
+
+                console.log(this.errorMessage);
+                this.successMessage = ''; // Clear any previous success message
+            }
+        );
     }
-  }
+}
 
   async getPosts(): Promise<any[]> {
     this.posts = await this.sanityService.getAllPosts();
